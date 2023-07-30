@@ -1,0 +1,27 @@
+{
+  "name": "micro-videos",
+  "version": "1.0.0",
+  "description": "Admin do catálogo de vídeos",
+  "main": "index.js",
+  "scripts": {
+    "ts-node": "ts-node",
+    "tsc": "tsc",
+    "clean:tsc": "rm tsconfig.tsbuildinfo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cheerokee: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@github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript/issues"
+  },
+  "homepage": "https://github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript#readme",
+  "devDependencies": {
+    "@types/node": "14.14.45",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
