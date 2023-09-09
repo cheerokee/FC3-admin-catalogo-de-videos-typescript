@@ -1,10 +1,36 @@
-FROM node:14.15.4-slim
+FROM node:18.16.1-slim
 
-# usuário do container - root - futuramente
-# echo $UID
-#USER node - 1000
+RUN mkdir -p /usr/share/man/man1 && \
+    echo 'deb http://ftp.debian.org/debian bullseye-backports main' | tee /etc/apt/sources.list.d/bullseye-backports.list && \
+    apt update && apt install -y \
+    git \
+    ca-certificates \
+    openjdk-17-jre \
+    zsh \
+    curl \
+    wget \
+    fonts-powerline \
+    procps
+
+
+RUN npm install -g @nestjs/cli@10.0.0 npm@9.8.0
+
+ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+
 USER node
 
 WORKDIR /home/node/app
 
-CMD [ "sh", "-c", "npm install && tail -f /dev/null" ]
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
+    -t https://github.com/romkatv/powerlevel10k \
+    -p git \
+    -p git-flow \
+    -p https://github.com/zdharma-continuum/fast-syntax-highlighting \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions \
+    -a 'export TERM=xterm-256color'
+
+RUN echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc && \
+    echo 'HISTFILE=/home/node/zsh/.zsh_history' >> ~/.zshrc
+
+CMD [ "tail", "-f" , "/dev/null" ]

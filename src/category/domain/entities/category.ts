@@ -1,4 +1,4 @@
-import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.vo";
+import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 export type CategoryProperties = {
   name: string;
@@ -14,6 +14,7 @@ export class Category {
 
   public readonly id: UniqueEntityId;
 
+  // readonly permite bloquear uma edição direta do props ex: category.props = {...};
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
     this.id = id ?? new UniqueEntityId(); // Quebrando o limite arquitetural
     this.description = this.props.description ?? null;
@@ -29,6 +30,7 @@ export class Category {
     return this.props.description;
   }
 
+  // Forçar a não utilizar set fora da entidade.
   private set description(value: string) {
     this.props.description = value ?? null;
   }

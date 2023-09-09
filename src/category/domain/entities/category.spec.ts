@@ -1,29 +1,35 @@
 import { omit } from 'lodash';
 
 import { Category, CategoryProperties } from "./category";
-import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.vo";
+import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 describe("Category Unit Tests",() => {
   test('constructor of category',() => {
+    // Triple AAA = Arrange Act Assert
+    // Arrange + Act
     let category = new Category({ name: 'Movie' });
 
     // Dessa forma conseguimos omitir o created at, pois ele só conseguimos obter dentro da classe Category
     let props = omit(category.props,'created_at');
 
+    // Assert
     // Sem omitir o created at nao conseguiriamos trabalhar com strictEqual
     expect(props).toStrictEqual({
       name: 'Movie',
       description: null,
       is_active: true
     });
+
     expect(category.props.created_at).toBeInstanceOf(Date);
 
-    let  created_at = new Date();
     category = new Category({
       name: 'Movie',
       description: 'some description',
       is_active: true
     });
+
+    /* Compara propriedade por propriedade do objeto com modelo, inclusive os tipos de cada propriedade */
+    let  created_at = new Date();
     expect(category.props).toStrictEqual({
       name: 'Movie',
       description: 'some description',
@@ -35,6 +41,11 @@ describe("Category Unit Tests",() => {
       name: 'Movie',
       description: 'other description'
     });
+    /*
+    * toMatchObject - Checa parcialmente se um objeto é igual a outro, significa que se o
+    * objeto construído tiver uma propriedade a mais que o modelo, ele vai considerar com verdadeiro,
+    * nesse caso se quisermos comprar propriedade por propriedade devemos usar o toStrictEqual
+    * */
     expect(category.props).toMatchObject({
       name: 'Movie',
       description: 'other description'
@@ -44,6 +55,7 @@ describe("Category Unit Tests",() => {
       name: 'Movie',
       is_active: true
     });
+
     expect(category.props).toMatchObject({
       name: 'Movie',
       is_active: true
@@ -54,6 +66,7 @@ describe("Category Unit Tests",() => {
       name: 'Movie',
       created_at
     });
+
     expect(category.props).toMatchObject({
       name: 'Movie',
       created_at
