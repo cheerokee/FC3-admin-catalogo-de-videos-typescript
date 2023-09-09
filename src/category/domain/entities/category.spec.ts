@@ -2,6 +2,8 @@ import { omit } from 'lodash';
 
 import { Category, CategoryProperties } from "./category";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
+import InvalidUuidError from "../../../@seedwork/errors/invalid-uuid.error";
+import InvalidUpdateDataError from "../../../@seedwork/errors/invalid-update-data.error";
 
 describe("Category Unit Tests",() => {
   test('constructor of category',() => {
@@ -86,7 +88,7 @@ describe("Category Unit Tests",() => {
     data.forEach(i => {
       const category = new Category(i.props,i.id);
       expect(category.id).not.toBeNull(); // Usando o not como combinação
-      expect(category.id).toBeInstanceOf(UniqueEntityId);
+      expect(typeof category.id).toBe("string");
     });
   })
 
@@ -143,4 +145,42 @@ describe("Category Unit Tests",() => {
 
     expect(category.created_at).toBe(created_at);
   });
-})
+
+  test('update category',() => {
+    const category = new Category({ name: 'cat 1', description: 'desc 1' });
+    category.update({ name: 'cat 2', description: 'desc 2' });
+
+    expect(category.name).toBe('cat 2');
+    expect(category.description).toBe('desc 2');
+
+    category.update({ description: 'desc 3' } as any);
+    expect(category.name).toBe('cat 2');
+    expect(category.description).toBe('desc 3');
+
+    expect(() => {
+      category.update({ name: 'cat 3', xpto: 123 } as any);
+    }).toThrow(new InvalidUpdateDataError());
+
+    expect(category.name).toBe('cat 3');
+  });
+
+  test('active and deactive category',() => {
+    let category = new Category({ name: 'cat 1' });
+    expect(category.is_active).toBeTruthy();
+
+    category.deactivate();
+    expect(category.is_active).toBeFalsy();
+
+    category.activate();
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({ name: 'cat 1', is_active: null });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({ name: 'cat 1', is_active: undefined });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({ name: 'cat 1', is_active: false });
+    expect(category.is_active).toBeFalsy();
+  });
+});
