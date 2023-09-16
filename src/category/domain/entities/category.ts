@@ -1,7 +1,8 @@
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import Entity from "../../../@seedwork/domain/entity/entity";
+import { EntityValidationError } from "../../../@seedwork/domain/errors/validation-error";
 import { CategoryUpdateDto } from "../dtos/category-update.dto";
-import InvalidUpdateDataError from "../../../@seedwork/errors/invalid-update-data.error";
+import CategoryValidatorFactory from "../validators/category.validator";
 
 export type CategoryProperties = {
   name: string;
@@ -17,6 +18,10 @@ export class Category extends Entity<CategoryProperties> {
 
   // readonly permite bloquear uma edição direta do props ex: category.props = {...};
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
+    Category.validate(props);
+    // Validar o objeto na integra
+    // Valida filho - composição de objetos
+    // Validação deferida - domain service - pedido(cliente_id) e cliente
     super(props,id);
 
     this.description = this.props.description ?? null;
@@ -30,8 +35,42 @@ export class Category extends Entity<CategoryProperties> {
     this.props.created_at = this.props.created_at ?? new Date();
   }
 
+  update(props: CategoryUpdateDto) {
+    Category.validate(props as CategoryProperties);
+
+    this.name = props.name;
+    this.description = props.description;
+
+    // const dtoKeys = Object.keys(new CategoryUpdateDto());
+    //
+    // for (let [key, value] of Object.entries(props)) {
+    //   if(!dtoKeys.includes(key))
+    //     throw new InvalidUpdateDataError();
+    //
+    //   this.props[key] = value;
+    // }
+  }
+
+  // static validate(props: Omit<CategoryProperties, 'created_at'>) {
+  //   ValidatorRules.values(props.name,'name').required().string().maxLength(255);
+  //   ValidatorRules.values(props.description,'description').string();
+  //   ValidatorRules.values(props.is_active,'is_active').boolean();
+  // }
+
+  static validate(props: CategoryProperties) {
+    const validator = CategoryValidatorFactory.create();
+    const isValid = validator.validate(props);
+
+    if(!isValid)
+      throw new EntityValidationError(validator.errors);
+  }
+
   get name() {
     return this.props.name;
+  }
+
+  private set name(value: string) {
+    this.props.name = value ?? null;
   }
 
   get description() {
@@ -55,17 +94,6 @@ export class Category extends Entity<CategoryProperties> {
     return this.props.created_at;
   }
 
-  update(props: CategoryUpdateDto) {
-    const dtoKeys = Object.keys(new CategoryUpdateDto());
-
-    for (let [key, value] of Object.entries(props)) {
-      if(!dtoKeys.includes(key))
-        throw new InvalidUpdateDataError();
-
-      this.props[key] = value;
-    }
-  }
-
   activate() {
     this.props.is_active = true;
   }
@@ -77,3 +105,4 @@ export class Category extends Entity<CategoryProperties> {
 // Entidades vs Entidades Anemicas
 // TDD - Kent Beck
 // Tests - Fail - Success - Refactor
+

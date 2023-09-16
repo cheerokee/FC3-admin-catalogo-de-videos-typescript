@@ -2,14 +2,26 @@ import { omit } from 'lodash';
 
 import { Category, CategoryProperties } from "./category";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
-import InvalidUuidError from "../../../@seedwork/errors/invalid-uuid.error";
-import InvalidUpdateDataError from "../../../@seedwork/errors/invalid-update-data.error";
+import InvalidUuidError from "../../../@seedwork/domain/errors/invalid-uuid.error";
+import InvalidUpdateDataError from "../../../@seedwork/domain/errors/invalid-update-data.error";
 
+// dubles de testes - mock
+// stub - fake object
+// spyOn - espionar uma variable, classe ou metodo
+// mock - fake object - expectativa
 describe("Category Unit Tests",() => {
+
+  beforeEach(() => {
+    // Fazendo com que o validator não seja executado, objetivo isolar o teste.
+    Category.validate = jest.fn();
+  });
+
   test('constructor of category',() => {
     // Triple AAA = Arrange Act Assert
     // Arrange + Act
     let category = new Category({ name: 'Movie' });
+
+    expect(Category.validate).toHaveBeenCalled();
 
     // Dessa forma conseguimos omitir o created at, pois ele só conseguimos obter dentro da classe Category
     let props = omit(category.props,'created_at');
@@ -89,6 +101,7 @@ describe("Category Unit Tests",() => {
       const category = new Category(i.props,i.id);
       expect(category.id).not.toBeNull(); // Usando o not como combinação
       expect(typeof category.id).toBe("string");
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
     });
   })
 
@@ -150,18 +163,20 @@ describe("Category Unit Tests",() => {
     const category = new Category({ name: 'cat 1', description: 'desc 1' });
     category.update({ name: 'cat 2', description: 'desc 2' });
 
+    // Chamou o validador na construção e na atualização
+    expect(Category.validate).toHaveBeenCalledTimes(2);
+
     expect(category.name).toBe('cat 2');
     expect(category.description).toBe('desc 2');
 
-    category.update({ description: 'desc 3' } as any);
+    category.update({ name: 'cat 2', description: 'desc 3' } as any);
     expect(category.name).toBe('cat 2');
     expect(category.description).toBe('desc 3');
 
-    expect(() => {
-      category.update({ name: 'cat 3', xpto: 123 } as any);
-    }).toThrow(new InvalidUpdateDataError());
+    // expect(() => {
+    //   category.update({ name: 'cat 3', xpto: 123 } as any);
+    // }).toThrow(new InvalidUpdateDataError());
 
-    expect(category.name).toBe('cat 3');
   });
 
   test('active and deactive category',() => {
