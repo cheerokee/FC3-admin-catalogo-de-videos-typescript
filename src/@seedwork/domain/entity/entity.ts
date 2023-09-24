@@ -1,4 +1,4 @@
-import UniqueEntityId from "../value-objects/unique-entity-id.vo";
+import UniqueEntityId from "../value-objects/unique-entity.id";
 
 // Props = any - desobriga a fazer class Xpto extends Entity<Anithing>
 export default abstract class Entity<Props = any> {

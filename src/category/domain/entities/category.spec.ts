@@ -1,7 +1,7 @@
 import { omit } from 'lodash';
 
 import { Category, CategoryProperties } from "./category";
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
+import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity.id";
 import InvalidUuidError from "../../../@seedwork/domain/errors/invalid-uuid.error";
 import InvalidUpdateDataError from "../../../@seedwork/domain/errors/invalid-update-data.error";
 

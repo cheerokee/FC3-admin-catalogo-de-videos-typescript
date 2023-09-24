@@ -1,6 +1,6 @@
 import { validate as uuidValidate } from "uuid";
 
-import UniqueEntityId from "../unique-entity-id.vo";
+import UniqueEntityId from "../unique-entity.id";
 import InvalidUuidError from "../../errors/invalid-uuid.error";
 
 // function spyValidationMethod() {

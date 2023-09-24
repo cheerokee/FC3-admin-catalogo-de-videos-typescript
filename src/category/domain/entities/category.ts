@@ -1,4 +1,4 @@
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
+import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity.id";
 import Entity from "../../../@seedwork/domain/entity/entity";
 import { EntityValidationError } from "../../../@seedwork/domain/errors/validation-error";
 import { CategoryUpdateDto } from "../dtos/category-update.dto";
