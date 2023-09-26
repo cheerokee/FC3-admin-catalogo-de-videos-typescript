@@ -1,6 +1,6 @@
 import { Category } from "../entities/category";
-import NotFoundError from "../../../@seedwork/domain/errors/not-found.error";
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity.id";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
+import UniqueEntityId from "#seedwork/domain/value-objects/unique-entity.id";
 import CategoryInMemoryRepository from "../../infra/repository/category-in-memory.repository";
 
 describe("Category Repository Unit Tests",() => {

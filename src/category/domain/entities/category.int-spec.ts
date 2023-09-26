@@ -1,5 +1,4 @@
 import { Category } from "./category";
-import { EntityValidationError } from "../../../@seedwork/domain/errors/validation-error";
 
 describe('Category Integration Tests',() => {
 

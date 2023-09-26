@@ -1,6 +1,6 @@
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity.id";
-import Entity from "../../../@seedwork/domain/entity/entity";
-import { EntityValidationError } from "../../../@seedwork/domain/errors/validation-error";
+import UniqueEntityId from "#seedwork/domain/value-objects/unique-entity.id";
+import Entity from "#seedwork/domain/entity/entity";
+import { EntityValidationError } from "#seedwork/domain/errors/validation-error";
 import { CategoryUpdateDto } from "../dtos/category-update.dto";
 import CategoryValidatorFactory from "../validators/category.validator";
 

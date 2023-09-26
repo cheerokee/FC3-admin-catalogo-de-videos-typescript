@@ -1,6 +1,6 @@
 import CategoryInMemoryRepository from "../../../infra/repository/category-in-memory.repository";
 import DeleteCategoryUseCase from "../delete-category.use-case";
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
 import { Category } from "../../../domain/entities/category";
 
 describe("DeleteCategoryUseCase Unit Tests",() => {
