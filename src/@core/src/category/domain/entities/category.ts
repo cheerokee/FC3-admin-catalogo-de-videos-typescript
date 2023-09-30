@@ -1,9 +1,9 @@
-import Entity from "../../../@seedwork/domain/entity/entity";
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity.id";
-import { EntityValidationError } from "../../../@seedwork/domain";
+import Entity from "#seedwork/domain/entity/entity";
+import UniqueEntityId from "#seedwork/domain/value-objects/unique-entity.id";
+import { EntityValidationError } from "#seedwork/domain";
 import { CategoryUpdateDto } from "../index";
 
-import CategoryValidatorFactory from "../validators/category.validator";
+import { CategoryValidatorFactory } from "../index";
 
 export type CategoryProperties = {
   name: string;

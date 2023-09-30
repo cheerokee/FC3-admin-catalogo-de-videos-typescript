@@ -1,5 +1,5 @@
 import { omit } from 'lodash';
-import { Category } from "./category";
+import { Category } from "#category/domain/entities";
 
 // dubles de testes - mock
 // stub - fake object

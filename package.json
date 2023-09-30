@@ -14,16 +14,11 @@
     "./src/@core",
     "./src/nestjs"
   ],
-  "devDependencies": {},
   "scripts": {
     "prestart:dev": "npm run build -w @fc/micro-videos",
     "start:dev": "npm run build:w -w @fc/micro-videos & npm run start:dev -w nestjs",
     "test": "jest",
     "test:cov": "jest --coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://cheerokee: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@github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript.git"
   },
   "keywords": [],
   "author": "",

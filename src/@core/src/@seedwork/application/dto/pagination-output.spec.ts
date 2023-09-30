@@ -1,5 +1,5 @@
-import { SearchResult } from "../../domain";
-import { PaginationOutputMapper } from "../index";
+import { SearchResult } from "#seedwork/domain";
+import { PaginationOutputMapper } from "#seedwork/application";
 
 describe('PaginationOutputMapper Unit Tests',() => {
   it("should convert a SearchResult in output",() => {

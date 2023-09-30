@@ -1,4 +1,4 @@
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
 
 import CategoryInMemoryRepository from "../../../infra/repository/category-in-memory.repository";
 import { Category } from "../../../domain/entities/category";

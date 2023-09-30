@@ -1,6 +1,6 @@
-import { default as DefaultUseCase } from "../../../@seedwork/application/use-case";
-import { SearchInput } from "../../../@seedwork/application/dto/search-input";
-import { PaginationOutput, PaginationOutputMapper } from "../../../@seedwork/application/dto/pagination-output";
+import { default as DefaultUseCase } from "#seedwork/application/use-case";
+import { SearchInput } from "#seedwork/application";
+import { PaginationOutput, PaginationOutputMapper } from "#seedwork/application";
 
 import { CategoryOutput, CategoryOutputMapper } from "../dto/category-output";
 import CategoryRepository from "../../domain/repository/category.repository";

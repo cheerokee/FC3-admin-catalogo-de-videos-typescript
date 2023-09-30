@@ -51,10 +51,6 @@
     "cti": "cti",
     "cti:@core": "sh ./cti.sh"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://cheerokee: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@github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
