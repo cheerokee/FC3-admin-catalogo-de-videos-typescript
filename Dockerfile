@@ -1,11 +1,11 @@
 FROM node:18.16.1-slim
 
 RUN mkdir -p /usr/share/man/man1 && \
-    echo 'deb http://ftp.debian.org/debian bullseye-backports main' | tee /etc/apt/sources.list.d/bullseye-backports.list && \
+    echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
     apt update && apt install -y \
     git \
     ca-certificates \
-    openjdk-17-jre \
+    default-jdk \
     zsh \
     curl \
     wget \

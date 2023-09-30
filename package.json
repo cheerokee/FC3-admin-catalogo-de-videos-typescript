@@ -1,18 +1,29 @@
 {
-  "name": "micro-videos",
+  "name": "back-admin",
   "version": "1.0.0",
-  "description": "Admin do catálogo de vídeos",
+  "description": "# Repetir para as outras entidades Genre, Cast member Video",
   "main": "index.js",
+  "dependencies": {
+    "class-validator": "^0.14.0",
+    "create-ts-index": "^1.14.0",
+    "jest": "^29.6.2",
+    "regenerator-runtime": "^0.14.0",
+    "uuid": "^9.0.0"
+  },
+  "workspaces": [
+    "./src/@core",
+    "./src/nestjs"
+  ],
+  "devDependencies": {},
   "scripts": {
-    "ts-node": "ts-node",
-    "tsc": "tsc",
-    "clean:tsc": "rm tsconfig.tsbuildinfo",
+    "prestart:dev": "npm run build -w @fc/micro-videos",
+    "start:dev": "npm run build:w -w @fc/micro-videos & npm run start:dev -w nestjs",
     "test": "jest",
-    "test cov": "npm run test -- --coverage"
+    "test:cov": "jest --coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://cheerokee: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@github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript.git"
+    "url": "git+https://cheerokee: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@github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript.git"
   },
   "keywords": [],
   "author": "",
@@ -20,24 +31,5 @@
   "bugs": {
     "url": "https://github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript/issues"
   },
-  "homepage": "https://github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript#readme",
-  "devDependencies": {
-    "@swc/core": "^1.3.72",
-    "@swc/jest": "^0.2.27",
-    "@types/jest": "^29.5.3",
-    "@types/lodash": "^4.14.196",
-    "@types/node": "14.14.45",
-    "@types/uuid": "^9.0.2",
-    "jest": "^29.6.2",
-    "regenerator-runtime": "^0.14.0",
-    "ts-node": "^10.9.1",
-    "ttypescript": "^1.5.15",
-    "typescript": "^5.1.6",
-    "typescript-transform-paths": "^3.4.6"
-  },
-  "dependencies": {
-    "class-validator": "^0.14.0",
-    "lodash": "^4.17.21",
-    "uuid": "^9.0.0"
-  }
+  "homepage": "https://github.com/cheerokee/FC3-admin-catalogo-de-videos-typescript#readme"
 }
