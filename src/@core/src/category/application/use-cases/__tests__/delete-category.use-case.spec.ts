@@ -1,6 +1,6 @@
 import NotFoundError from "#seedwork/domain/errors/not-found.error";
 
-import CategoryInMemoryRepository from "./../../../infra/repository/category-in-memory.repository";
+import CategoryInMemoryRepository from "#category/infra/db/in-memory/category-in-memory.repository";
 import DeleteCategoryUseCase from "./../../../application/use-cases/delete-category.use-case";
 import { Category } from "./../../../domain/entities/category";
 

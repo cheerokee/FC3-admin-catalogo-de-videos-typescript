@@ -1,4 +1,4 @@
-import CategoryInMemoryRepository from "../../../infra/repository/category-in-memory.repository";
+import CategoryInMemoryRepository from "#category/infra/db/in-memory/category-in-memory.repository";
 import ListCategoriesUseCase from "../list-categories.use-case";
 import { Category } from "../../../domain/entities/category";
 import CategoryRepository from "../../../domain/repository/category.repository";

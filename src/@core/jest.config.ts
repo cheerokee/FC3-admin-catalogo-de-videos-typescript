@@ -1,38 +1,26 @@
-/**
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
-
-
-const config = {
+export default {
   displayName: {
     name: '@core',
     color: 'blue'
   },
-  clearMocks: true, // Limpa o mock a cada teste que é executado
-  coverageDirectory: '<rootDir>/../__coverage',
+  clearMocks: true,
+  coverageDirectory: '../__coverage',
   coverageProvider: "v8",
-  coverageReporters: [
-    "json",
-    "text",
-    "html"
-    // "lcov",
-    // "clover"
-  ],
   coverageThreshold: {
     global: {
       statements: 80,
       branches: 80,
       functions: 80,
       lines: 80
-    }
+    },
   },
   rootDir: "src",
-  setupFilesAfterEnv: ["./@seedwork/domain/tests/validations.ts"],
+  setupFilesAfterEnv: [
+    "./@seedwork/domain/tests/validations.ts",
+    "./@seedwork/domain/tests/jest.ts",
+  ],
   testRegex: ".*\\..*spec\\.ts$",
   transform: {
-    "^.+\\.(t|j)sx?$": "@swc/jest",
+    "^.+\\.ts?$": ["@swc/jest"],
   }
 };
-
-export default config;

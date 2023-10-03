@@ -1,5 +1,5 @@
-import CategoryInMemoryRepository from "./../../infra/repository/category-in-memory.repository";
-import { Category } from "./../../domain/entities/category";
+import CategoryInMemoryRepository from "./category-in-memory.repository";
+import { Category } from "#category/domain";
 
 describe('CategoryInMemoryRepository Unit Tests', () => {
 

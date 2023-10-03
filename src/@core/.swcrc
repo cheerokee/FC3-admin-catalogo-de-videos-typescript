@@ -7,8 +7,11 @@
     "baseUrl": "./src",
     "keepClassNames": true,
     "paths": {
-      "#seedwork/*" : [
+      "#seedwork/*": [
         "./@seedwork/*"
+      ],
+      "#category/*": [
+        "./category/*"
       ]
     }
   }

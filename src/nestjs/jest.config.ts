@@ -19,12 +19,11 @@ export default {
   moduleNameMapper: {
     '@fc/micro\\-videos/(.*)$': `${fc_micro_videos_path}/$1`,
     //'#seedwork/domain': '<rootDir>/../../../node_modules/@fc/micro-videos/dist/@seedwork/domain/index.js',
-
     '#seedwork/(.*)$': `${fc_micro_videos_path}/@seedwork/$1`,
-    '#category/domain': '<rootDir>/../../../node_modules/@fc/micro-videos/dist/category/domain/index.js',
+    // '#category/domain': '<rootDir>/../../../node_modules/@fc/micro-videos/dist/category/domain/index.js',
     '#category/(.*)$': `${fc_micro_videos_path}/category/$1`,
+
   },
-  setupFilesAfterEnv: ['../../@core/src/@seedwork/domain/tests/jest.ts'],
   coverageThreshold: {
     global: {
       statements: 80,

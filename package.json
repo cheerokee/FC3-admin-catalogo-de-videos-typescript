@@ -1,7 +1,7 @@
 {
   "name": "back-admin",
-  "version": "1.0.0",
-  "description": "# Repetir para as outras entidades Genre, Cast member Video",
+  "version": "0.0.1",
+  "description": "",
   "main": "index.js",
   "dependencies": {
     "class-validator": "^0.14.0",
