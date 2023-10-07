@@ -1,6 +1,9 @@
+import { Op } from "sequelize";
+
 import { Category, CategoryRepository } from "#category/domain";
-import { UniqueEntityId } from "#seedwork/domain";
+import { NotFoundError, UniqueEntityId } from "#seedwork/domain";
 import { CategoryModel } from "#category/infra/db/sequelize/category-model";
+import { CategoryModelMapper } from "#category/infra/db/sequelize/category-mapper";
 
 export class CategorySequelizeRepository implements CategoryRepository.Repository {
   sortableFields: string[] = ["name","created_at"];
@@ -21,17 +24,53 @@ export class CategorySequelizeRepository implements CategoryRepository.Repositor
   }
 
   async findById(id: string | UniqueEntityId): Promise<Category> {
-    const model = this.categoryModel.findByPk(id as string);
-
+    const _id = `${id}`;
+    const model = await this._get(_id);
     // converter persistencia para entidade
-    return Promise.resolve(undefined);
+    return CategoryModelMapper.toEntity(model);
   }
 
   async findAll(): Promise<Category[]> {
-    return Promise.resolve([]);
+    const models = await this.categoryModel.findAll();
+    return models.map((m) => CategoryModelMapper.toEntity(m));
   }
 
-  async search(props: CategoryRepository.SearchParams): Promise<CategoryRepository.SearchResult> {
-    throw new Error("Method not implemented.");
+  private async _get(id: string): Promise<CategoryModel> {
+    return this.categoryModel
+      .findByPk(id, {
+        rejectOnEmpty: new NotFoundError(`Entity Not Found using ID ${ id }`)
+      });
+  }
+
+  async search(
+    props: CategoryRepository.SearchParams
+  ): Promise<CategoryRepository.SearchResult> {
+    const offset = (props.page - 1) * props.per_page;
+    const limit = props.per_page;
+
+    // 2 SQL
+    // contar o total geral baseado em filtro
+    const { rows: models, count} = await this.categoryModel.findAndCountAll({
+      ...( props.filter && {
+        where: { name: { [Op.like]: `%${ props.filter }%` } }
+      }),
+      // ...(props.sort && this.sortableFields.includes(props.sort)),
+      ...(props.sort && this.sortableFields.includes(props.sort)
+        ? { order: [[props.sort, props.sort_dir]] }
+        : { order: [['created_at', 'DESC']] }
+      ),
+      limit,
+      offset
+    });
+
+    return new CategoryRepository.SearchResult({
+      items: models.map(m => CategoryModelMapper.toEntity(m)),
+      filter: props.filter,
+      current_page: props.page,
+      per_page: props.per_page,
+      sort: props.sort,
+      sort_dir: props.sort_dir,
+      total: count
+    })
   }
 }

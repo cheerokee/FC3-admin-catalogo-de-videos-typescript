@@ -1,7 +1,7 @@
 import { default as DefaultUseCase }  from "../../../@seedwork/application/use-case";
 
-import { Category } from "../../domain/entities/category";
-import { CategoryOutput, CategoryOutputMapper } from "../dto/category-output";
+import { Category } from "#category/domain";
+import { CategoryOutput, CategoryOutputMapper } from "#category/application";
 import CategoryRepository from "../../domain/repository/category.repository";
 
 export namespace CreateCategoryUseCase {

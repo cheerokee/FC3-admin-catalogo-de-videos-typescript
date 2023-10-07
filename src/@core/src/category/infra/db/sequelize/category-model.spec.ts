@@ -1,25 +1,9 @@
-import { DataType, Sequelize } from "sequelize-typescript";
+import { DataType } from "sequelize-typescript";
 import { CategoryModel } from "#category/infra/db/sequelize/category-model";
+import { setupSequelize } from "#seedwork/infra/testing/helpers/db";
 
 describe("CategoryModel Unit Tests",() => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ':memory:', // ativar modo em memória
-      logging: false,
-      models: [CategoryModel]
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true }); // force: Limpar o banco a cada teste
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [CategoryModel] });
 
   test('mapping props',() => {
     const attributesMap = CategoryModel.getAttributes();

@@ -2,7 +2,7 @@ import { SearchParams, SearchResult } from "../../index";
 
 describe("Search Unit Tests", () => {
   describe("SearchParams Unit Tests", () => {
-    test("page prop",() => {
+    describe("page prop",() => {
       const params = new SearchParams();
       expect(params.page).toBe(1);
 
@@ -21,9 +21,13 @@ describe("Search Unit Tests", () => {
         { page: 2, expected: 2}
       ];
 
-      arrange.forEach(i => {
-        expect(new SearchParams({ page: i.page as any }).page).toBe(i.expected);
+      test.each(arrange)('when receive $page should be $expected',({ page, expected }) => {
+        expect(new SearchParams({ page: page as any }).page).toBe(expected);
       })
+
+      // arrange.forEach(i => {
+      //   expect(new SearchParams({ page: i.page as any }).page).toBe(i.expected);
+      // })
     });
 
     test("per_page prop",() => {

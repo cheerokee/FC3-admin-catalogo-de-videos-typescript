@@ -1,5 +1,6 @@
 import { omit } from 'lodash';
-import { Category } from "./category";
+import { Category, CategoryProperties } from "./category";
+import { UniqueEntityId } from "#seedwork/domain";
 
 // dubles de testes - mock
 // stub - fake object
@@ -83,23 +84,23 @@ describe("Category Unit Tests",() => {
     });
   });
 
-  // test('id field',() => {
-  //   type CategoryData = { props: CategoryProperties, id?: UniqueEntityId };
-  //
-  //   const data: CategoryData[] = [
-  //     { props: { name: 'Movie' } },
-  //     { props: { name: 'Movie' }, id: null },
-  //     { props: { name: 'Movie' }, id: undefined },
-  //     { props: { name: 'Movie' }, id: new UniqueEntityId() },
-  //   ];
-  //
-  //   data.forEach(i => {
-  //     const category = new Category(i.props,i.id);
-  //     expect(category.id).not.toBeNull(); // Usando o not como combinação
-  //     expect(typeof category.id).toBe("string");
-  //     // expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
-  //   });
-  // })
+  describe('id field',() => {
+    type CategoryData = { props: CategoryProperties, id?: UniqueEntityId };
+
+    const data: CategoryData[] = [
+      { props: { name: 'Movie' } },
+      { props: { name: 'Movie' }, id: null },
+      { props: { name: 'Movie' }, id: undefined },
+      { props: { name: 'Movie' }, id: new UniqueEntityId() },
+    ];
+
+    test.each(data)('validate %j',(i) => {
+      const category = new Category(i.props,i.id);
+      expect(category.id).not.toBeNull(); // Usando o not como combinação
+      expect(typeof category.id).toBe("string");
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
+    });
+  })
 
   test('getter of name field',() => {
     const category = new Category({ name: 'Movie' });
@@ -172,7 +173,6 @@ describe("Category Unit Tests",() => {
     // expect(() => {
     //   category.update({ name: 'cat 3', xpto: 123 } as any);
     // }).toThrow(new InvalidUpdateDataError());
-
   });
 
   test('active and deactive category',() => {

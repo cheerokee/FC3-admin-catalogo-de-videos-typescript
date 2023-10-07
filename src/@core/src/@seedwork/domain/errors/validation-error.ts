@@ -1,4 +1,4 @@
-import { FieldsErrors } from "../index";
+import { FieldsErrors } from "#seedwork/domain";
 
 export class ValidationError extends Error {}
 
