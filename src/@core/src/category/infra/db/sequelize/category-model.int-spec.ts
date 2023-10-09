@@ -1,13 +1,13 @@
 import { DataType } from "sequelize-typescript";
-import { CategoryModel } from "#category/infra/db/sequelize/category-model";
 import { setupSequelize } from "#seedwork/infra/testing/helpers/db";
+import CategorySequelize from "#category/infra/db/sequelize/category-sequelize";
 
 describe("CategoryModel Unit Tests",() => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   test('mapping props',() => {
-    const attributesMap = CategoryModel.getAttributes();
-    const attributes = Object.keys(CategoryModel.getAttributes());
+    const attributesMap = CategorySequelize.CategoryModel.getAttributes();
+    const attributes = Object.keys(CategorySequelize.CategoryModel.getAttributes());
     expect(attributes).toStrictEqual([
       'id',
       'name',
@@ -70,7 +70,7 @@ describe("CategoryModel Unit Tests",() => {
       created_at: new Date()
     };
 
-    const category = await CategoryModel.create(arrange);
+    const category = await CategorySequelize.CategoryModel.create(arrange);
     // toJson = Traz apenas as propriedades do modelo, em vez das infinitas propriedades que é retornado da função.
     expect(category.toJSON()).toStrictEqual(arrange);
   })
@@ -79,7 +79,5 @@ describe("CategoryModel Unit Tests",() => {
   // Criar tabelas
   // testes
   // Desconecte banco
-
-
 
 });
