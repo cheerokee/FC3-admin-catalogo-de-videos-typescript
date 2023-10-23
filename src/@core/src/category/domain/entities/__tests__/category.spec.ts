@@ -1,5 +1,5 @@
 import { omit } from 'lodash';
-import { Category, CategoryProperties } from "./category";
+import { Category, CategoryProperties } from "../category";
 import { UniqueEntityId } from "#seedwork/domain";
 
 // dubles de testes - mock

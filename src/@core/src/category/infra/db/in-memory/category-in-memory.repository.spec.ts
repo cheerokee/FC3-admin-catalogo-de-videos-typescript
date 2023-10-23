@@ -1,5 +1,6 @@
 import CategoryInMemoryRepository from "./category-in-memory.repository";
 import { Category } from "#category/domain";
+import { CategoryFakeBuilder } from "#category/domain/entities/category-fake-builder";
 
 describe('CategoryInMemoryRepository Unit Tests', () => {
 
@@ -11,7 +12,9 @@ describe('CategoryInMemoryRepository Unit Tests', () => {
 
   describe('should no filter items when filter object is null',() => {
     it('should no filter items when param is null',async () => {
-      const items = [new Category({ name: "name value" })];
+      const items = [
+        Category.fake().aCategory().build()
+      ];
       const spyFilterMethod = jest.spyOn(items, 'filter' as any);
       const itemsFiltered = await repository['applyFilter'](items, null);
       expect(spyFilterMethod).not.toHaveBeenCalled();
@@ -19,10 +22,14 @@ describe('CategoryInMemoryRepository Unit Tests', () => {
     });
 
     it('should filter using a filter param',async () => {
+      const faker = Category.fake().aCategory();
       const items = [
-        new Category({ name: "test" }),
-        new Category({ name: "Test" }),
-        new Category({ name: "Fake" }),
+        faker.withName("test").build(),
+        faker.withName("Test").build(),
+        faker.withName("Fake").build()
+        // new Category({ name: "test" }),
+        // new Category({ name: "Test" }),
+        // new Category({ name: "Fake" }),
       ];
       const spyFilterMethod = jest.spyOn(items, 'filter' as any);
       let itemsFiltered = await repository['applyFilter'](items, 'TEST');

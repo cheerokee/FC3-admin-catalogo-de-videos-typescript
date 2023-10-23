@@ -1,4 +1,4 @@
-import { UpdateCategoryUseCase } from "@fc/micro-videos/dist/category/application";
+import { UpdateCategoryUseCase } from "@fc/micro-videos/category/application";
 
 export class UpdateCategoryDto implements Omit<UpdateCategoryUseCase.Input, 'id'> {
   name: string;

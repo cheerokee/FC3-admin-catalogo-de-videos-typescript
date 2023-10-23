@@ -1,58 +1,26 @@
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from "@nestjs/sequelize";
+import { CategorySequelize } from "@fc/micro-videos/category/infra";
+
 import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
-import { CategoryInMemoryRepository } from "@fc/micro-videos/category/infra";
-import {
-  CreateCategoryUseCase, DeleteCategoryUseCase, GetCategoryUseCase,
-  ListCategoriesUseCase,
-  UpdateCategoryUseCase
-} from "@fc/micro-videos/category/application";
-import { CategoryRepository } from "@fc/micro-videos/category/domain";
+import { CATEGORY_PROVIDERS } from "./category.providers";
 
 @Module({
+  imports: [
+    SequelizeModule.forFeature([CategorySequelize.CategoryModel])
+  ],
   controllers: [CategoriesController],
   providers: [
     CategoriesService,
-    {
-      provide: 'CategoryInMemoryRepository',
-      useClass: CategoryInMemoryRepository
-    },
-    {
-      provide: CreateCategoryUseCase.UseCase,
-      useFactory: (categoryRepo: CategoryRepository.Repository) => {
-        return new CreateCategoryUseCase.UseCase(categoryRepo);
-      },
-      inject: [ 'CategoryInMemoryRepository' ]
-    },
-    {
-      provide: UpdateCategoryUseCase.UseCase,
-      useFactory: (categoryRepo: CategoryRepository.Repository) => {
-        return new UpdateCategoryUseCase.UseCase(categoryRepo);
-      },
-      inject: [ 'CategoryInMemoryRepository' ]
-    },
-    {
-      provide: ListCategoriesUseCase.UseCase,
-      useFactory: (categoryRepo: CategoryRepository.Repository) => {
-        return new ListCategoriesUseCase.UseCase(categoryRepo);
-      },
-      inject: [ 'CategoryInMemoryRepository' ]
-    },
-    {
-      provide: GetCategoryUseCase.UseCase,
-      useFactory: (categoryRepo: CategoryRepository.Repository) => {
-        return new GetCategoryUseCase.UseCase(categoryRepo);
-      },
-      inject: [ 'CategoryInMemoryRepository' ]
-    },
-    {
-      provide: DeleteCategoryUseCase.UseCase,
-      useFactory: (categoryRepo: CategoryRepository.Repository) => {
-        return new DeleteCategoryUseCase.UseCase(categoryRepo);
-      },
-      inject: [ 'CategoryInMemoryRepository' ]
-    }
+    ...Object.values(CATEGORY_PROVIDERS.REPOSITORIES),
+    ...Object.values(CATEGORY_PROVIDERS.USE_CASES),
   ]
 })
 export class CategoriesModule {}
 
+// testes no categoriesmodule
+// levantar module
+// verificar imports
+// verificar controllers
+// verificar providers

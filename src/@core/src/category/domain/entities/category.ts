@@ -3,6 +3,7 @@ import UniqueEntityId from "#seedwork/domain/value-objects/unique-entity.id";
 import { EntityValidationError } from "#seedwork/domain/errors/validation-error";
 import { CategoryUpdateDto } from "../index";
 import { CategoryValidatorFactory } from "../index";
+import { CategoryFakeBuilder } from "#category/domain/entities/category-fake-builder";
 
 export type CategoryProperties = {
   name: string;
@@ -101,7 +102,13 @@ export class Category extends Entity<CategoryProperties> {
   deactivate() {
     this.props.is_active = false;
   }
+
+  static fake() {
+    return CategoryFakeBuilder;
+  }
 }
+
+// Category.fake().aCategory().build();
 // Entidades vs Entidades Anemicas
 // TDD - Kent Beck
 // Tests - Fail - Success - Refactor

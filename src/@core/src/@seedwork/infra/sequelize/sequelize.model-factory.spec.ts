@@ -3,6 +3,7 @@ import _chance from "chance";
 import { validate as uuidValidate } from "uuid";
 import { SequelizeModelFactory } from "#seedwork/infra/sequelize/sequelize.model-factory";
 import { setupSequelize } from "#seedwork/infra/testing/helpers/db";
+// import { Config } from "@swc/core";
 
 const chance = _chance();
 
@@ -141,3 +142,7 @@ describe('SequelizeModelFactory Unit Tests',() => {
     expect(StubModel.mockFactory).toHaveBeenCalledTimes(2);
   });
 })
+
+// function makeSequelizeOptions(config: Config) {
+//
+// }
