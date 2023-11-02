@@ -4,8 +4,65 @@ services:
   app:
     build: .
     container_name: fc-micro-videos
-    command: .docker/start.sh
+    command: sh .docker/start.sh
     volumes:
       - .:/home/node/app
     ports:
-      - 3000:3000
+      - 3001:3001
+    networks:
+      - mynet
+
+  db:
+    image: mysql:8.0.30-debian
+    container_name: micro-videos-typescript-db
+    ports:
+      - 3307:3306
+    profiles: # esse container só sobe se a gente passar o profile dev: $ docker compose --profile dev up
+      - dev
+    environment:
+      - MYSQL_DATABASE=micro_videos
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql:delegated # cached: atualiza rapidamente, delegated: atualiza com certo atraso deixando o volume mais rapido
+    security_opt:
+      - seccomp:unconfined
+    networks:
+      - mynet
+
+  db_test:
+    image: mysql:8.0.33-debian
+    container_name: micro-videos-typescript-db-test
+    environment:
+      - MYSQL_DATABASE=micro_videos_test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3308:3306
+    tmpfs:
+      - /var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
+    networks:
+      - mynet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: micro-videos-phpmyadmin
+    links:
+      - db
+    profiles: # esse container só sobe se a gente passar o profile dev: $ docker compose --profile dev up
+      - dev
+    environment: # servidor: db   username: root  password: root
+      PMA_HOST: mysql
+      PMA_PORT: 3308
+      PMA_ARBITRARY: 1
+#      PMA_USER: root
+#      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 300M
+    restart: always
+    ports:
+      - "9000:80"
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: bridge

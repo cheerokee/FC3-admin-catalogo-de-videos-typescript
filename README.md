@@ -10,3 +10,9 @@
 # Nest.js - Criação de API Rest
 # Integração com RabbitMQ e Encoder de vídeo
 # Testes E2E (End-to-End)
+
+# boas práticas e como criar end-to-end tests
+# técnicas de como acelerar os tests (mysql, migrations)
+# tratamento de erros
+# erros de validação
+# rever a serialização - wrapper data

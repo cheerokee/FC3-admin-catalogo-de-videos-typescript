@@ -9,7 +9,7 @@ describe("CategoryModelMapper Unit Tests",() => {
   it('should throws error when category is invalid', () => {
     const model = CategorySequelize.CategoryModel.build({ id: '1fe145e0-e900-44fb-bd88-74bb05247ba8' });
     try {
-      CategorySequelize.ModelMapper.toEntity(model);
+      CategorySequelize.CategoryModelMapper.toEntity(model);
       fail('The category is valid, but it needs throws a loadEntityError')
     } catch (e) {
       expect(e).toBeInstanceOf(LoadEntityError);
@@ -32,7 +32,7 @@ describe("CategoryModelMapper Unit Tests",() => {
       });
 
     const model = CategorySequelize.CategoryModel.build({ id: '1fe145e0-e900-44fb-bd88-74bb05247ba8' });
-    expect(() => CategorySequelize.ModelMapper.toEntity(model)).toThrow(error);
+    expect(() => CategorySequelize.CategoryModelMapper.toEntity(model)).toThrow(error);
     expect(spyValidate).toHaveBeenCalled();
     spyValidate.mockRestore()
   });
@@ -46,7 +46,7 @@ describe("CategoryModelMapper Unit Tests",() => {
       is_active: true,
       created_at
     });
-    const entity = CategorySequelize.ModelMapper.toEntity(model);
+    const entity = CategorySequelize.CategoryModelMapper.toEntity(model);
     expect(entity.toJSON()).toStrictEqual(
       new Category({
         name: 'some value',

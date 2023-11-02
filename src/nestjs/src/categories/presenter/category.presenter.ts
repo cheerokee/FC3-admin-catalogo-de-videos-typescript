@@ -1,14 +1,15 @@
 import { Transform } from "class-transformer";
-import { CategoryOutput } from "@fc/micro-videos/dist/category/application";
-import ListCategoriesUseCase from "@fc/micro-videos/dist/category/application/use-cases/list-categories.use-case";
 import { CollectionPresenter } from "../../@share/presenters/collection.presenter";
+import { CategoryOutput, ListCategoriesUseCase } from "@fc/micro-videos/category/application";
 
 export  class CategoryPresenter {
   id: string;
   name: string;
   description: string | null;
   is_active: boolean;
-  @Transform(({ value }) => value.toISOString())
+  @Transform(({ value }) => {
+    return value.toISOString().slice(0,19) + '.000Z';
+  })
   created_at: Date;
 
   constructor(output: CategoryOutput) {

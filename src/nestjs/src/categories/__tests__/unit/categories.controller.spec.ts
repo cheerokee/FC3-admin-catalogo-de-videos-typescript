@@ -3,8 +3,8 @@ import {
   CreateCategoryUseCase,
   GetCategoryUseCase, ListCategoriesUseCase,
   UpdateCategoryUseCase
-} from "@fc/micro-videos/dist/category/application";
-import { SortDirection } from "@fc/micro-videos/dist/@seedwork/domain";
+} from "@fc/micro-videos/category/application";
+import { SortDirection } from "@fc/micro-videos/@seedwork/domain";
 import { CategoryCollectionPresenter, CategoryPresenter } from "../../presenter/category.presenter";
 
 describe('CategoriesController Unit Tests', () => {

@@ -2,7 +2,7 @@ import { default as DefaultUseCase } from "#seedwork/application/use-case";
 import { SearchInput } from "#seedwork/application";
 import { PaginationOutput, PaginationOutputMapper } from "#seedwork/application/dto/pagination-output";
 
-import { CategoryOutput, CategoryOutputMapper } from "../dto/category-output";
+import { CategoryOutput, CategoryOutputMapper } from "#category/application";
 import CategoryRepository from "../../domain/repository/category.repository";
 
 export namespace ListCategoriesUseCase {

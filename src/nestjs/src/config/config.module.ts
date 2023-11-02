@@ -11,7 +11,7 @@ type DB_SCHEMA_TYPE = {
   DB_PASSWORD: string;
   DB_PORT: number;
   DB_LOGGING: boolean;
-  DB_AUTO_LOAD_MODULES: boolean;
+  DB_AUTO_LOAD_MODELS: boolean;
 };
 
 export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<DB_SCHEMA_TYPE> = { // Validador de Env
@@ -34,7 +34,7 @@ export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<DB_SCHEMA_TYPE> = { // Valida
     then: Joi.required()
   }),
   DB_LOGGING: Joi.boolean().required(),
-  DB_AUTO_LOAD_MODULES: Joi.boolean().required()
+  DB_AUTO_LOAD_MODELS: Joi.boolean().required()
 };
 
 export type CONFIG_SCHEMA_TYPE = DB_SCHEMA_TYPE;
@@ -49,7 +49,7 @@ export class ConfigModule extends NestConfigModule {
       envFilePath: [
         ...(Array.isArray(envFilePath) ? envFilePath : [envFilePath]),
         join(__dirname, `../../envs/.env.${process.env.NODE_ENV}`),
-        join(__dirname, '../envs/.env'),
+        join(__dirname, '../../envs/.env'),
       ],
       validationSchema: Joi.object({
         ...CONFIG_DB_SCHEMA,

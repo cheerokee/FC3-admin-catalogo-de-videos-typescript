@@ -143,17 +143,17 @@ describe("Schema Unit Tests",() => {
       });
     });
 
-    describe('DB_AUTO_LOAD_MODULES',() => {
+    describe('DB_AUTO_LOAD_MODELS',() => {
       test('invalid cases', () => {
-        expectValidate(schema,{}).toContain('"DB_AUTO_LOAD_MODULES" is required');
-        expectValidate(schema,{ DB_AUTO_LOAD_MODULES: 'a' }).toContain('"DB_AUTO_LOAD_MODULES" must be a boolean')
+        expectValidate(schema,{}).toContain('"DB_AUTO_LOAD_MODELS" is required');
+        expectValidate(schema,{ DB_AUTO_LOAD_MODELS: 'a' }).toContain('"DB_AUTO_LOAD_MODELS" must be a boolean')
       });
 
       test('valid cases', () => {
         const arrange = [true,'true',false,'false'];
 
         arrange.forEach((value) => {
-          expectValidate(schema, { DB_AUTO_LOAD_MODULES: value }).not.toContain('DB_AUTO_LOAD_MODULES');
+          expectValidate(schema, { DB_AUTO_LOAD_MODELS: value }).not.toContain('DB_AUTO_LOAD_MODELS');
         })
       });
     });

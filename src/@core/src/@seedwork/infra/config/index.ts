@@ -1,5 +1,4 @@
-import { Dialect } from "sequelize";
-import { config as readEnv } from 'dotenv';
+import { config as readEnv } from "dotenv";
 import { join } from "path";
 
 type Config = {
@@ -15,15 +14,37 @@ function makeConfig(envFile): Config {
 
   return {
     db: {
-      vendor: output.parsed.DB_VENDOR as Dialect,
+      vendor: output.parsed.DB_VENDOR as any,
       host: output.parsed.DB_HOST,
-      logging: output.parsed.DB_LOGGING === 'true',
-    }
-  }
+      logging: output.parsed.DB_LOGGING === "true",
+    },
+  };
 }
 
-const envTestFile = join(__dirname, "../../../../.env.test");
-export const configTest = makeConfig(envTestFile);
+//export const config = makeConfig(envFile);
 
-// const envDevelopingFile = join(__dirname, "../../../../.env.developing");
-// export const configDevelopment = makeConfig(envDevelopingFile);
+const envTestingFile = join(__dirname, "../../../../.env.test");
+export const configTest = makeConfig(envTestingFile);
+
+
+// import { config as readEnv } from "dotenv";
+// import { join } from "path";
+
+// export class Config {
+//   static env: any = {};
+//   static db() {
+//     Config.readEnv();
+
+//       return {
+//         dialect: 'sqlite',
+//         host: Config.env.DB_HOST,
+//         logging: Config.env.DB_LOGGING === 'true',
+//       };
+//   }
+
+//   static readEnv() {
+//     Config.env = readEnv({
+//       path: join(__dirname, "../../../../.env.test"),
+//     }).parsed;
+//   }
+// }
