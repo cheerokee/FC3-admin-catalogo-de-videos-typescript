@@ -2,7 +2,7 @@ import { Chance } from 'chance';
 import { UniqueEntityId } from "#seedwork/domain";
 import { Category } from "#category/domain";
 
-type PropOrFactory<T> = T | ((index: number) => T)
+import { PropOrFactory } from "#seedwork/@types/prop-or-factory";
 
 export class CategoryFakeBuilder<TBuild = any> {
 
